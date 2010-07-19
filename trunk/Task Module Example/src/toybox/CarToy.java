@@ -13,7 +13,7 @@ public class CarToy {
 		speed += 5;
 	}
 	
-	public void startEnging() {
+	public void startEngine() {
 		System.out.println("Mmmmm Mmmmm");
 	}
 }

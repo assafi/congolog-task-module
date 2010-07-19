@@ -19,7 +19,10 @@ public aspect TMLHook {
 		call(public void toybox.CarToy.accelerate());
 	
 	pointcut startEngine() :
-		call(public void toybox.carToy.startEngine());
+		call(public void toybox.CarToy.startEngine());
+	
+	pointcut speed(int speed) :
+		set(private int toybox.CarToy.speed) && args(speed);
 	
 	before() : init() {
 		if (tmlLoaded) {
@@ -48,6 +51,14 @@ public aspect TMLHook {
 	after() : startEngine() {
 		try {
 			tml.activityOccured("startEngine");
+		} catch (TaskModuleException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	after(int speed) : speed(speed) {
+		try {
+			tml.varChanged("speed", speed);
 		} catch (TaskModuleException e) {
 			e.printStackTrace();
 		}
